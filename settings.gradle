@@ -1,11 +1,12 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         maven {
-            name = 'MinecraftForge'
-            url = 'https://maven.minecraftforge.net/'
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
         }
+        gradlePluginPortal()
+        mavenCentral()
     }
 }
 
-rootProject.name = 'minecraft-but-you-cant-stop-walking'
+rootProject.name = 'minecraft-but-you-cant-stop-walking-fabric'
