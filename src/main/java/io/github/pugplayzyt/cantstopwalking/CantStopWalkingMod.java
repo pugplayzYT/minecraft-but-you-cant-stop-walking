@@ -1,6 +1,6 @@
 package io.github.pugplayzyt.cantstopwalking;
 
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.fml.common.Mod;
 
 @Mod(CantStopWalkingMod.MOD_ID)
 public final class CantStopWalkingMod {
