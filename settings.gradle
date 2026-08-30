@@ -8,4 +8,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'minecraft-but-you-cant-stop-walking'
+rootProject.name = 'minecraft-but-you-cant-stop-walking-forge'
