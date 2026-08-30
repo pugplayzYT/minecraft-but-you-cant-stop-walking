@@ -2,10 +2,10 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         maven {
-            name = 'MinecraftForge'
-            url = 'https://maven.minecraftforge.net/'
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases'
         }
     }
 }
 
-rootProject.name = 'minecraft-but-you-cant-stop-walking'
+rootProject.name = 'minecraft-but-you-cant-stop-walking-neoforge'
