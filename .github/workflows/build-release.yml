@@ -18,7 +18,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [ forge, fabric, neoforge ]
+        include:
+          - branch: forge
+            gradle: '8.10.2'
+          - branch: fabric
+            gradle: '8.12'
+          - branch: neoforge
+            gradle: '8.14'
 
     steps:
       - name: Check out ${{ matrix.branch }}
@@ -32,10 +38,10 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Set up Gradle 8.10.2
+      - name: Set up Gradle ${{ matrix.gradle }}
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.10.2'
+          gradle-version: ${{ matrix.gradle }}
 
       - name: Build ${{ matrix.branch }} mod
         run: gradle clean build --no-daemon --stacktrace
