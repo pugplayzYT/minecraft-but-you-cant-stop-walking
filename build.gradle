@@ -1,33 +1,12 @@
 plugins {
-    id 'java'
-    id 'net.minecraftforge.gradle' version '6.0.54'
+    id 'fabric-loom' version '1.10-SNAPSHOT'
 }
 
 version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = 'minecraft-but-you-cant-stop-walking'
-}
-
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
-}
-
-minecraft {
-    mappings channel: 'official', version: minecraft_version
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.console.level', 'info'
-            mods {
-                cantstopwalking {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
+    archivesName = 'minecraft-but-you-cant-stop-walking-fabric'
 }
 
 repositories {
@@ -35,33 +14,25 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 }
 
-tasks.named('processResources', ProcessResources) {
-    def props = [
-            minecraft_version: minecraft_version,
-            forge_version: forge_version,
-            mod_id: mod_id,
-            mod_name: mod_name,
-            mod_version: mod_version
-    ]
-    inputs.properties props
-    filesMatching('META-INF/mods.toml') {
-        expand props
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand version: project.version
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
+    options.release = 21
     options.encoding = 'UTF-8'
 }
 
-jar {
-    manifest {
-        attributes([
-                'Implementation-Title': mod_name,
-                'Implementation-Version': mod_version,
-                'Implementation-Vendor': 'pugplayzYT'
-        ])
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
