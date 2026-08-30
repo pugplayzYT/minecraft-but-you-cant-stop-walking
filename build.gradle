@@ -7,7 +7,7 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = 'minecraft-but-you-cant-stop-walking'
+    archivesName = 'minecraft-but-you-cant-stop-walking-forge'
 }
 
 java {
