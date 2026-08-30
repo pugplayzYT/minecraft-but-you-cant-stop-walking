@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "cantstopwalking",
+  "version": "${version}",
+  "name": "Minecraft But You Can't Stop Walking",
+  "description": "A client-side challenge mod that can force you to walk forward, jump forever, or both.",
+  "authors": ["pugplayzYT"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "io.github.pugplayzyt.cantstopwalking.CantStopWalkingMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "fabric-api": "*",
+    "minecraft": "1.21.1",
+    "java": ">=21"
+  }
+}
