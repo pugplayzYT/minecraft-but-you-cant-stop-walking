@@ -5,12 +5,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 
-@Mod.EventBusSubscriber(modid = CantStopWalkingMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CantStopWalkingMod.MOD_ID, value = Dist.CLIENT)
 public final class ClientChallengeEvents {
     private static boolean forceWalking = false;
     private static boolean forceJumping = false;
@@ -20,7 +20,7 @@ public final class ClientChallengeEvents {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent.Pre event) {
+    public static void onClientTick(ClientTickEvent.Pre event) {
         Minecraft minecraft = Minecraft.getInstance();
         boolean inWorld = minecraft.player != null && minecraft.level != null;
 
@@ -39,8 +39,6 @@ public final class ClientChallengeEvents {
 
     private static void applyForcedControls(Minecraft minecraft) {
         if (forceWalking) {
-            // W is always held. Every other movement direction is hard-disabled,
-            // so S/A/D cannot cancel or steer against the challenge.
             minecraft.options.keyUp.setDown(true);
             minecraft.options.keyDown.setDown(false);
             minecraft.options.keyLeft.setDown(false);
@@ -67,9 +65,6 @@ public final class ClientChallengeEvents {
     }
 
     private static final class ChallengeScreen extends Screen {
-        private Button walkingButton;
-        private Button jumpingButton;
-
         private ChallengeScreen() {
             super(Component.literal("What do you want? Do you want Minecraft?"));
         }
@@ -79,7 +74,7 @@ public final class ClientChallengeEvents {
             int centerX = this.width / 2;
             int startY = this.height / 2 - 35;
 
-            this.walkingButton = this.addRenderableWidget(Button.builder(
+            this.addRenderableWidget(Button.builder(
                     walkingText(),
                     button -> {
                         forceWalking = !forceWalking;
@@ -87,7 +82,7 @@ public final class ClientChallengeEvents {
                     }
             ).bounds(centerX - 120, startY, 240, 20).build());
 
-            this.jumpingButton = this.addRenderableWidget(Button.builder(
+            this.addRenderableWidget(Button.builder(
                     jumpingText(),
                     button -> {
                         forceJumping = !forceJumping;
